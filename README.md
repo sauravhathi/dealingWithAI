@@ -66,7 +66,7 @@ npm start
 This will start the server on `http://localhost:3000`.
 
 ### postman api testing
-![image](https://user-images.githubusercontent.com/61316762/222928695-cd88d0d5-3ce5-423c-8cc3-a73f00fadc49.png)
+![image](https://user-images.githubusercontent.com/61316762/222929101-372a85df-dc71-471f-bede-01a455011ec7.png)
 
 #### rate-limit
 ![image](https://user-images.githubusercontent.com/61316762/222928929-9faf195e-73ad-45b5-8044-8385db037cf5.png)
