@@ -74,7 +74,7 @@ app.post("/v1/api/dealingWithAI", limiter, validateInput, async (req, res) => {
           prompt = `Create report ${prompt}`; // If the value is 'report making', prepend the string 'Create report ' to the input string
           break;
         case "programming":
-          const codePrompt = `${language}${task ? task : "Solve"}${prompt}`; // If the value is 'programming', concatenate the 'language', 'task' (if present), and input string
+          const codePrompt = `${language || "C++"}${task ? task : "Solve"}${prompt}`; // If the value is 'programming', concatenate the 'language', 'task' (if present), and input string
           prompt = codePrompt.length > process.env.MAX_CHARACTERS ? `${language}${task}` : codePrompt; // If the length of the concatenated string is greater than the maximum allowed length, only use the 'language' and 'task' strings
           break;
         case "math":
