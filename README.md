@@ -1,6 +1,6 @@
 # Dealing With AI
 
-Dealing with AI is a web application that uses OpenAI's GPT-3 API. TThe API endpoint allows users to make requests to the OpenAI API for various natural language processing tasks such as sentence correction, paraphrasing, report making, programming, math, writing, website optimization and many more.
+Dealing with AI is a web application that uses OpenAI's GPT-3 API. The API endpoint allows users to make requests to the OpenAI API for various natural language processing tasks such as sentence correction, paraphrasing, report making, programming, math, writing, website optimization and many more.
 
 ## Tech Stack
 
