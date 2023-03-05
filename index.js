@@ -1,11 +1,13 @@
 // Import required dependencies and modules
 const express = require("express"); // express framework
+const cors = require("cors"); // CORS middleware
 const { Configuration, OpenAIApi } = require("openai"); // OpenAI API wrapper
 const dotenv = require("dotenv"); // loads environment variables from .env file
 const rateLimit = require("express-rate-limit"); // rate limiting middleware
 
 const app = express(); // create express application instance
-const port = process.env.PORT || 3000; // set the server port, either from environment variable or default to 3000
+const port = process.env.PORT || 5000; // set the server port, either from environment variable or default to 3000
+app.use(cors()); // use CORS middleware to allow cross-origin requests
 dotenv.config(); // load environment variables from .env file
 
 // Initialize OpenAI API client with API key from environment variables
@@ -65,7 +67,6 @@ app.post("/v1/api/dealingWithAI", limiter, validateInput, async (req, res) => {
       switch (option) { // Check the value of the 'option' property
         case "sentence correction":
           prompt = `Correct it ${prompt}`; // If the value is 'sentence correction', prepend the string 'Correct it ' to the input string
-          console.log(prompt); // Log the modified prompt string to the console
           break;
         case "paraphraser":
           prompt = `Paraphrase it ${prompt}`; // If the value is 'paraphraser', prepend the string 'Paraphrase it ' to the input string
@@ -96,6 +97,10 @@ app.post("/v1/api/dealingWithAI", limiter, validateInput, async (req, res) => {
       prompt, // Pass the modified prompt string as the input prompt
       max_tokens: 300, // Set the maximum number of tokens (words) in the generated text
     });
+
+    // set the Access-Control-Allow-Origin header to allow all origins
+    res.set("Access-Control-Allow-Origin", "*");
+    res.set("Access-Control-Allow-Methods", "POST");
 
     const data = completion.data.choices[0].text.trim(); // Extract the generated text from the OpenAI response
     res.send({ data }); // Send the generated text back to the client as the response
