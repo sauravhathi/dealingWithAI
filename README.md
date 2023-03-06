@@ -2,6 +2,13 @@
 
 Dealing with AI is a web application that uses OpenAI's GPT-3 API. The API endpoint allows users to make requests to the OpenAI API for various natural language processing tasks such as sentence correction, paraphrasing, report making, programming, math, writing, website optimization and many more.
 
+## Demo
+### Frontend👉 https://dealing-with-ai.vercel.app/
+
+![image](https://user-images.githubusercontent.com/61316762/222989171-5230e69e-1cd4-4fdd-b856-96b9a8d2f68d.png)
+
+![image](https://user-images.githubusercontent.com/61316762/222989173-4a5241dd-61ce-48f7-8e1b-63ecf3d5ce4b.png)
+
 ## Tech Stack
 
 The tech stack used in this application includes:
