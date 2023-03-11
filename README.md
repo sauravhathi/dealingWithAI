@@ -74,13 +74,13 @@ Follow these steps to install the application and its dependencies:
 ## Usage
 
 To start the application, run the following command in the project directory:
-	```bash
+	`
 	npm start 
-	```
+	`
 if you want to use nodemon
-	```bash
+	`
 	npm run server
-	```
+	`
 
 This will start the server on `http://localhost:3000`.
 
