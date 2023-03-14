@@ -92,19 +92,17 @@ app.post("/v1/api/dealingWithAI", limiter, validateInput, async (req, res) => {
       }
     }
 
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003", // Specify the OpenAI language model to use
-      prompt, // Pass the modified prompt string as the input prompt
-      max_tokens: 300, // Set the maximum number of tokens (words) in the generated text
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo", // Use the 'gpt-3.5-turbo' model
+      messages: [{role: "user", content: prompt}],
     });
 
     // set the Access-Control-Allow-Origin header to allow all origins
     res.set("Access-Control-Allow-Origin", "*");
     res.set("Access-Control-Allow-Methods", "POST");
 
-    const data = completion.data.choices[0].text.trim(); // Extract the generated text from the OpenAI response
+    const data = completion.data.choices[0].message.content.trim(); // Extract the generated text from the OpenAI response
     res.send({ data }); // Send the generated text back to the client as the response
-
   } catch (error) {
     res.status(500).send({ error: "Something went wrong" }); // If an error occurs, send an error response to the client
   }
