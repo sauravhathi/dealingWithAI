@@ -60,7 +60,11 @@ const validateInput = (req, res, next) => {
 // This route handles incoming POST requests to the '/v1/api/dealingWithAI' endpoint
 app.post("/v1/api/dealingWithAI", limiter, validateInput, async (req, res) => {
   try {
-    const { value, option, language, task } = req.body; // Extract the 'value', 'option', 'language', and 'task' properties from the request body
+    // set the Access-Control-Allow-Origin header to allow all origins
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+    const { value, option, language, task, number } = req.body; // Extract the 'value', 'option', 'language', and 'task' properties from the request body
     let prompt = stringClean(value); // Clean the input string by removing any leading/trailing whitespaces or line breaks
 
     if (option) { // If the 'option' property is present in the request body
@@ -73,6 +77,14 @@ app.post("/v1/api/dealingWithAI", limiter, validateInput, async (req, res) => {
           break;
         case "report making":
           prompt = `Create report ${prompt}`; // If the value is 'report making', prepend the string 'Create report ' to the input string
+          break;
+        case "table of content":
+          prompt = `write table of content ${prompt}`; // If the value is 'table of content', prepend the string 'write table of content ' to the input string
+        case "compare review papers":
+          prompt = `${prompt} comparison of existing papers ${number} don't add conclusion and introduction` // comparing review papers, task is the name of the paper to be compared with the input paper and the conclusion and introduction are not added
+          break;
+        case "apa citation":
+          prompt = `APA citation ${prompt}`; // generate APA citation or reference
           break;
         case "programming":
           const codePrompt = `${language || "C++"}${task ? task : "Solve"}${prompt}`; // If the value is 'programming', concatenate the 'language', 'task' (if present), and input string
@@ -94,12 +106,8 @@ app.post("/v1/api/dealingWithAI", limiter, validateInput, async (req, res) => {
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo", // Use the 'gpt-3.5-turbo' model
-      messages: [{role: "user", content: prompt}],
+      messages: [{ role: "user", content: prompt }],
     });
-
-    // set the Access-Control-Allow-Origin header to allow all origins
-    res.set("Access-Control-Allow-Origin", "*");
-    res.set("Access-Control-Allow-Methods", "POST");
 
     const data = completion.data.choices[0].message.content.trim(); // Extract the generated text from the OpenAI response
     res.send({ data }); // Send the generated text back to the client as the response
